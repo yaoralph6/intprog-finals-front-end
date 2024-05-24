@@ -1,0 +1,63 @@
+// global styles
+a { cursor: pointer; }
+
+.app-container {
+    min-height: 320px;
+}
+
+.admin-nav {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #e8e9ea;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-delete-account {
+    width: 50px;
+    text-align: center;
+    box-sizing: content-box;
+}
+.btn-delete-account {
+    color: #dfcdcd; /* Adjust as desired for a darker shade */
+}
+
+.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.dark-mode .admin-nav {
+    background-color: #333333;
+    border-bottom: 1px solid #555555;
+}
+
+.dark-mode a {
+    color: #aaaaaa;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-gap: 10px;
+  }
+
+  .button-row {
+    justify-content: flex-end;
+  }
+
+  /* In your global stylesheet */
+.light-mode {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .dark-mode {
+    background-color: #000000d0;
+    color: #fff;
+  }
+  
+  .btn-primary {
+    color: #fff;
+    background-color: #0d0d0e;
+    border-color: #eceff1;
+}

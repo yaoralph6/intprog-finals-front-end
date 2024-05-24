@@ -1,0 +1,9 @@
+<div *ngIf="player">
+    <h1>{{ player.name }}'s Profile</h1>
+    <p><strong>Nationality:</strong> {{ player.nationality }}</p>
+    <p><strong>Born:</strong> {{ player.born }}</p>
+    <p><strong>Region:</strong> {{ player.region }}</p>
+    <p><strong>Role:</strong> {{ player.role }}</p>
+    <p><strong>In-game Name:</strong> {{ player.ingameName }}</p>
+    <p><strong [routerLink]="['/teams/profile', player.teamId]">Team:</strong> {{ player.teamId }} {{ player.teamDisplayName }}</p>
+  </div>

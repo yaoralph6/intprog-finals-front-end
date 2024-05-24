@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPORTS CENTRAL</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      position: relative;
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Replace with a gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #b9b4b4;
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1; /* Ensure the content is above the overlay */
+    }
+    .container-card {
+      position: relative;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s; /* Add smooth transition effect */
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background to cards */
+      overflow: hidden; /* Ensure the pseudo-element stays within the card */
+      background-size: cover;
+      background-position: center;
+    }
+    .container-card.button-effect {
+      cursor: pointer; /* Change cursor to pointer on hover to indicate it's clickable */
+    }
+    .container-card.button-effect:hover {
+      transform: scale(1.05); /* Slightly increase size */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.0); /* Add deeper shadow */
+      background: rgba(0, 0, 0, 0.0); /* Less dark background on hover */
+    }
+
+    .container-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Slightly darker overlay */
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 0; /* Ensure the overlay is behind the content */
+    }
+    .container-card.button-effect:hover::before {
+      opacity: 1;
+    }
+    .dota2-background {
+      background-image: url('https://wallpapercave.com/wp/wp2178743.jpg'); /* Replace with Dota 2 background image URL */
+      background-size: cover;
+      background-position: center;
+      color: #ffffff; /* Ensuring text is readable on the background */
+    }
+  
+    .mobile-legends-background {
+      background-image: url('https://wallpaperaccess.com/full/3518004.jpg'); /* Replace with Mobile Legends background image URL */
+      background-size: cover;
+      background-position: center;
+      color: #ffffff; /* Ensuring text is readable on the background */
+    }
+    .valorant-background {
+      background-image: url('https://i.ytimg.com/vi/DlmfrnUDZWA/maxresdefault.jpg'); /* Replace with Valorant background image URL */
+      background-size: cover;
+      background-position: center;
+      color: #ffffff; /* Ensuring text is readable on the background */
+    }
+    .button-text {
+      position: relative;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #f3f1ef; /* Add border */
+      border-radius: 10px;
+      padding: 15px; /* Increase padding */
+      font-weight: bold;
+      font-size: 1.5rem; /* Increase font size */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      margin-top: 20px;
+      display: inline-block;
+      color: #c4c1be; /* Set text color to a contrasting color */
+      transition: background 0.4s; /* Add smooth background transition */
+      z-index: 1; /* Ensure the text is above the overlay */
+    }
+    .button-text:hover {
+      background: rgba(0, 0, 0, 1); /* Darken background on hover */
+    }
+    .link-card {
+      text-decoration: none; /* Remove underline from link */
+      color: inherit; /* Inherit text color */
+    }
+    /* Add this CSS style to make the text bold and give it a gaming vibe */
+    .gaming-text {
+      font-family: 'Orbitron', sans-serif; /* Use a bold font */
+      color: #ffffff; /* Set text color to white */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a subtle shadow effect */
+    }
+    .text-spacing {
+      margin-bottom: 40px; /* Add spacing between text and buttons */
+    }
+    .liked-text {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1; /* Ensure the text is above the overlay */
+    }
+    .game-info {
+      margin-top: 10px;
+      text-align: left;
+      color: #b9b4b4;
+      position: relative;
+      z-index: 1; /* Ensure the text is above the overlay */
+    }
+    .teams-description {
+      margin-top: 20px;
+      text-align: left;
+      color: #b9b4b4;
+      position: relative;
+      z-index: 1; /* Ensure the text is above the overlay */
+    }
+    /* Specific team backgrounds */
+    .team-secret {
+      background-image: url('https://amlosports.com/wp-content/uploads/2019/03/Team-Secret.jpg'); /* Replace with actual logo URL */
+    }
+    .og {
+      background-image: url('https://wallpapercave.com/wp/wp9400676.jpg'); /* Replace with actual logo URL */
+    }
+    .natus-vincere {
+      background-image: url('https://s1.1zoom.me/big3/390/431699-Kycb.jpg'); /* Replace with actual logo URL */
+    }
+    .evil-geniuses {
+      background-image: url('https://cdn-wp.thesportsrush.com/2020/11/7f18ac35-evil-geniuses.jpg'); /* Replace with actual logo URL */
+    }
+    .psg-lgd {
+      background-image: url('https://www.esportswizard.com/wp-content/uploads/Betway-PSG-LGD-Partnership-Shirts.jpg'); /* Replace with actual logo URL */
+    }
+    .sentinels {
+      background-image: url('https://brandingstyleguides.com/wp-content/guidelines/2020/12/Sentinels-1-scaled.jpg'); /* Replace with actual logo URL */
+    }
+    .g2-esports {
+      background-image: url('https://arena.rtp.pt/wp-content/uploads/2021/01/g2esports.jpg'); /* Replace with actual logo URL */
+    }
+    .team-liquid {
+      background-image: url('https://images.hdqwalls.com/wallpapers/team-liquid-ec.jpg'); /* Replace with actual logo URL */
+    }
+    .fnatic {
+      background-image: url('https://www.talkesport.com/wp-content/uploads/fnatic-valorant.jpg'); /* Replace with actual logo URL */
+    }
+    .cloud9 {
+      background-image: url('https://clipartcraft.com/images/cloud-9-logo-design-9.png'); /* Replace with actual logo URL */
+    }
+    .bren-esports {
+      background-image: url('https://i.ytimg.com/vi/zczgDAQzEGI/maxresdefault.jpg'); /* Replace with actual logo URL */
+    }
+    .blacklist-international {
+      background-image: url('https://cdn.wallpapersafari.com/54/45/cClm5X.jpg'); /* Replace with actual logo URL */
+    }
+    .rrq-hoshi {
+      background-image: url('https://dutabalinews.com/wp-content/uploads/2021/02/FF2842D5-48F6-456F-BBC4-3FF1B118B27C-scaled.jpeg'); /* Replace with actual logo URL */
+    }
+    .evos-legends {
+      background-image: url('https://e0.pxfuel.com/wallpapers/420/332/desktop-wallpaper-evos-esport-evos-esports.jpg'); /* Replace with actual logo URL */
+    }
+    .onic-esports {
+      background-image: url('https://i.ytimg.com/vi/QYHlIonGtCg/maxresdefault.jpg'); /* Replace with actual logo URL */
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay"></div>
+  <div class="content p-4 d-flex flex-column">
+    <h2>Hi {{account.firstName}}!</h2>
+    <h1 class="display-4 text-center gaming-text text-spacing">Welcome to ESPORTS CENTRAL</h1>
+    <p class="lead text-center gaming-text text-spacing">Designed for the Esports Community by the Future IT Pro.</p>
+
+    <!-- Dota 2 Tournaments button -->
+    <button class="container card container-card button-effect dota2-background" data-toggle="modal" data-target="#dota2Modal">
+      <a href="https://www.gosugamers.net/dota2/tournaments" class="button-text">Dota 2 Tournaments</a>
+      <div class="liked-text">83% liked this video game</div>
+      <div class="game-info">
+        <p>Dota 2 is a 2013 multiplayer online battle arena video game by Valve. The game is a sequel to Defense of the Ancients (DotA), a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos.</p>
+        <p><strong>Initial release date:</strong> July 9, 2013</p>
+        <p><strong>Developer:</strong> Valve Corporation</p>
+        <p><strong>Mode:</strong> Multiplayer video game</p>
+        <p><strong>Designers:</strong> IceFrog, Erik Johnson</p>
+        <p><strong>Genres:</strong> MOBA, Strategy video game, Action game</p>
+      </div>
+      <!-- Description of Dota 2 teams -->
+      <div class="teams-description">
+        <p><strong>Watch Dota Live Matches</strong></p>
+        <ul>
+          <li><a href="https://www.twitch.tv/dota2ti" target="_blank">Watch The International Live</a></li>
+          <li><a href="https://www.twitch.tv/esl_dota2" target="_blank">Watch ESL One Live</a></li>
+          <li><a href="https://www.twitch.tv/pglesports" target="_blank">Watch PGL Dota 2 Live</a></li>
+        </ul>
+      </div>
+      
+    </button>
+
+    <!-- Dota 2 Teams Description -->
+    <div class="container card container-card button-effect team-secret">
+      <a href="https://www.gosugamers.net/dota2/teams/8954-team-secret" class="button-text">Team Secret</a>
+      <div class="game-info">
+        <p>Team Secret is a European professional Dota 2 team, known for their strategic gameplay and strong individual talent. They have consistently been among the top teams in the world.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect og">
+      <a href="https://www.gosugamers.net/dota2/teams/13171-og" class="button-text">OG</a>
+      <div class="game-info">
+        <p>OG is a European professional Dota 2 team. They are the first and only team to win The International twice, making history with their back-to-back victories in 2018 and 2019.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect natus-vincere">
+      <a href="https://www.gosugamers.net/dota2/teams/2590-natus-vincere" class="button-text">Natus Vincere</a>
+      <div class="game-info">
+        <p>Natus Vincere, often abbreviated as Na'Vi, is a Ukrainian multi-gaming organization. Their Dota 2 team was the first to win The International in 2011 and they have been a prominent name in the esports scene ever since.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect evil-geniuses">
+      <a href="https://www.gosugamers.net/dota2/teams/2592-evil-geniuses" class="button-text">Evil Geniuses</a>
+      <div class="game-info">
+        <p>Evil Geniuses is an American esports organization based in San Francisco. Their Dota 2 team is one of the most successful and popular teams in the history of the game, known for their strategic prowess and strong individual players.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect psg-lgd">
+      <a href="https://www.gosugamers.net/dota2/teams/2933-lgd-gaming" class="button-text">PSG.LGD</a>
+      <div class="game-info">
+        <p>PSG.LGD is a Chinese professional Dota 2 team formed from the partnership between PSG Esports and LGD Gaming. They are known for their strong performance in regional and international tournaments.</p>
+      </div>
+    </div>
+
+    <!-- Valorant Tournaments button -->
+    <button class="container card container-card button-effect valorant-background" data-toggle="modal" data-target="#valorantModal">
+      <a href="https://www.gosugamers.net/valorant/tournaments" class="button-text">Valorant Tournaments</a>
+      <div class="liked-text">89% liked this video game</div>
+      <div class="game-info">
+        <p>Valorant is a 5v5 character-based tactical shooter developed and published by Riot Games. Each player controls one of several characters called Agents, each with unique abilities.</p>
+        <p><strong>Initial release date:</strong> June 2, 2020</p>
+        <p><strong>Developer:</strong> Riot Games</p>
+        <p><strong>Mode:</strong> Multiplayer video game</p>
+        <p><strong>Nominations:</strong> The Game Award for Best Esports Game, MORE</p>
+        <p><strong>License:</strong> Proprietary license</p>
+        <p><strong>Genres:</strong> Tactical shooter, First-person shooter</p>
+      </div>
+      <!-- Description of Valorant teams -->
+      <div class="teams-description">
+        <p><strong>Watch Valorant Live Matches</strong></p>
+        <ul>
+          <li><a href="https://www.twitch.tv/valorant" target="_blank">Watch VCT Masters Live</a></li>
+          <li><a href="https://www.twitch.tv/valorant" target="_blank">Watch VCT Challengers Live</a></li>
+          <li><a href="https://www.twitch.tv/valorant" target="_blank">Watch Valorant Champions Tour Live</a></li>
+        </ul>
+      </div>
+      
+    </button>
+
+    <!-- Valorant Teams Description -->
+    <div class="container card container-card button-effect sentinels">
+      <a href="https://www.gosugamers.net/valorant/teams/37543-sentinels" class="button-text">Sentinels</a>
+      <div class="game-info">
+        <p>Sentinels is a North American esports organization known for their dominant performance in Valorant. They have won numerous tournaments and are known for their strategic gameplay and individual skill.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect g2-esports">
+      <a href="https://www.gosugamers.net/valorant/teams/37528-g2-esports" class="button-text">G2 Esports</a>
+      <div class="game-info">
+        <p>G2 Esports is a European esports organization with a strong presence in Valorant. They are known for their aggressive playstyle and strong team coordination, consistently performing well in international tournaments.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect team-liquid">
+      <a href="https://www.gosugamers.net/valorant/teams/37527-team-liquid" class="button-text">Team Liquid</a>
+      <div class="game-info">
+        <p>Team Liquid is a professional esports organization based in the Netherlands. Their Valorant team is known for their tactical prowess and strong individual players, consistently competing at the highest level.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect fnatic">
+      <a href="https://www.gosugamers.net/valorant/teams/37873-fnatic" class="button-text">Fnatic</a>
+      <div class="game-info">
+        <p>Fnatic is a professional esports organization based in London. They have a strong Valorant team known for their innovative strategies and consistent performance in international tournaments.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect cloud9">
+      <a href="https://www.gosugamers.net/valorant/teams/37563-cloud9" class="button-text">Cloud9</a>
+      <div class="game-info">
+        <p>Cloud9 is an American esports organization known for their strong performance in various esports titles, including Valorant. Their Valorant team is known for their individual skill and strategic gameplay.</p>
+      </div>
+    </div>
+
+    <!-- Mobile Legends Tournaments button -->
+    <button class="container card container-card button-effect mobile-legends-background" data-toggle="modal" data-target="#mobileLegendsModal">
+      <a href="https://www.gosugamers.net/mobile-legends/tournaments" class="button-text">Mobile Legends Tournaments</a>
+      <div class="liked-text">80% liked this video game</div>
+      <div class="game-info">
+        <p>Mobile Legends: Bang Bang is a multiplayer online battle arena mobile game developed and published by Moonton, a subsidiary of ByteDance.</p>
+        <p><strong>Initial release date:</strong> July 11, 2016</p>
+        <p><strong>Developer:</strong> Moonton</p>
+        <p><strong>Mode:</strong> Multiplayer video game</p>
+        <p><strong>Genres:</strong> Multiplayer online battle arena</p>
+      </div>
+      <!-- Description of Mobile Legends teams -->
+      <div class="teams-description">
+        <p><strong>Watch Mobile Legends Live Matches</strong></p>
+        <ul>
+          <li><a href="https://www.youtube.com/c/MobileLegends5v5MOBA" target="_blank">Watch Mobile Legends Professional League Live</a></li>
+          <li><a href="https://www.facebook.com/MobileLegendsOnlinePH" target="_blank">Watch Mobile Legends Online Tournaments Live</a></li>
+          <li><a href="https://www.twitch.tv/mobilelegendsgame" target="_blank">Watch Mobile Legends on Twitch</a></li>
+        </ul>
+      </div>
+      
+    </button>
+
+    <!-- Mobile Legends Teams Description -->
+    <div class="container card container-card button-effect bren-esports">
+      <a href="https://www.gosugamers.net/mobile-legends/teams/39094-bren-esports" class="button-text">Bren Esports</a>
+      <div class="game-info">
+        <p>Bren Esports is a Filipino esports organization known for their strong performance in Mobile Legends. They have won numerous tournaments and are known for their strategic gameplay and strong individual players.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect blacklist-international">
+      <a href="https://www.gosugamers.net/mobile-legends/teams/39097-blacklist-international" class="button-text">Blacklist International</a>
+      <div class="game-info">
+        <p>Blacklist International is a Filipino esports organization with a strong presence in Mobile Legends. They are known for their innovative strategies and consistent performance in international tournaments.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect rrq-hoshi">
+      <a href="https://www.gosugamers.net/mobile-legends/teams/39104-rrq-hoshi" class="button-text">RRQ Hoshi</a>
+      <div class="game-info">
+        <p>RRQ Hoshi is an Indonesian esports organization known for their strong performance in Mobile Legends. They have consistently been one of the top teams in the world, known for their aggressive playstyle and exceptional team coordination.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect evos-legends">
+      <a href="https://www.gosugamers.net/mobile-legends/teams/39069-evos-legends" class="button-text">EVOS Legends</a>
+      <div class="game-info">
+        <p>EVOS Legends is an Indonesian esports organization with a strong presence in Mobile Legends. They are known for their individual skill and strategic gameplay, consistently competing at the highest level.</p>
+      </div>
+    </div>
+    <div class="container card container-card button-effect onic-esports">
+      <a href="https://www.gosugamers.net/mobile-legends/teams/39103-onic-esports" class="button-text">ONIC Esports</a>
+      <div class="game-info">
+        <p>ONIC Esports is an Indonesian esports organization known for their innovative strategies and strong team coordination in Mobile Legends. They have consistently performed well in international tournaments.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Dota 2 -->
+  <div class="modal fade" id="dota2Modal" tabindex="-1" aria-labelledby="dota2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dota2ModalLabel">Dota 2 Tournaments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Information about Dota 2 tournaments -->
+          <p>Dota 2 is a highly competitive game with numerous tournaments held around the world. These tournaments offer substantial prize pools and attract the best teams from across the globe.</p>
+          <p><strong>Major Tournaments:</strong></p>
+          <ul>
+            <li>The International</li>
+            <li>ESL One</li>
+            <li>MDL Disneyland Paris Major</li>
+            <li>ONE Esports Dota 2 World Pro Invitational</li>
+            <li>DreamLeague Season 13</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Valorant -->
+  <div class="modal fade" id="valorantModal" tabindex="-1" aria-labelledby="valorantModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="valorantModalLabel">Valorant Tournaments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Information about Valorant tournaments -->
+          <p>Valorant has quickly become one of the top esports titles, with numerous tournaments held around the world. These tournaments offer substantial prize pools and attract the best teams from across the globe.</p>
+          <p><strong>Major Tournaments:</strong></p>
+          <ul>
+            <li>Valorant Champions Tour</li>
+            <li>First Strike</li>
+            <li>Red Bull Campus Clutch</li>
+            <li>Pop Flash</li>
+            <li>BLAST Twitch Invitational</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Mobile Legends -->
+  <div class="modal fade" id="mobileLegendsModal" tabindex="-1" aria-labelledby="mobileLegendsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mobileLegendsModalLabel">Mobile Legends Tournaments</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Information about Mobile Legends tournaments -->
+          <p>Mobile Legends: Bang Bang has a thriving esports scene with numerous tournaments held around the world. These tournaments offer substantial prize pools and attract the best teams from across the globe.</p>
+          <p><strong>Major Tournaments:</strong></p>
+          <ul>
+            <li>Mobile Legends: Bang Bang World Championship (M1, M2, M3)</li>
+            <li>Mobile Legends Professional League (MPL)</li>
+            <li>Mobile Legends Southeast Asia Cup (MSC)</li>
+            <li>MLBB All-Star Showdown</li>
+            <li>ONE Esports Mobile Legends Invitational</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

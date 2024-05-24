@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Teams</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Replace with a gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+    }
+
+    .btn {
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-success {
+      background-color: #ff7f50; /* Changed color to orange */
+      border-color: #ff7f50; /* Changed color to orange */
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .table {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #e6dfdf;
+      margin-bottom: 20px;
+    }
+
+    .table thead th {
+      background-color: #292b2c;
+      color: #ffffff;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(40, 40, 40, 0.6);
+    }
+
+    .pagination {
+      justify-content: center;
+    }
+
+    .page-link {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #e6dfdf;
+      border: 1px solid #444;
+    }
+
+    .page-item.active .page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .actions .form-control {
+      flex: 1;
+      margin-left: 10px; /* Move margin to the left */
+    }
+  </style>
+</head>
+<body>
+  <h1>Teams</h1>
+
+  <div class="actions">
+    <a routerLink="/teams/add" class="btn btn-sm btn-success mb-2">Create Team</a>
+    <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterTeams()" class="form-control mb-2" placeholder="Search teams...">
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>  
+        <th>Name</th>
+        <th>Location</th>
+        <th>Coach</th>
+        <th>Region</th>
+        <th>Manager</th>
+        <th>Players</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of paginatedTeams">
+        <td><a (click)="viewTeam(team.teamId)">{{ team.name }}</a></td>
+        <td>{{ team.location }}</td>
+        <td>{{ team.coach }}</td>
+        <td>{{ team.region }}</td>
+        <td>{{ team.manager }}</td>
+        <td>{{ team.players?.length }}</td>
+        <td>
+          <a [routerLink]="['edit', team.teamId]" class="btn btn-sm btn-primary mr-1">Edit</a>
+          <button (click)="deleteTeam(team.teamId)" class="btn btn-sm btn-danger" [disabled]="team.isDeleting">
+            <span *ngIf="team.isDeleting" class="spinner-border spinner-border-sm"></span>
+            <span *ngIf="!team.isDeleting">Delete</span>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="isLoading">
+        <td colspan="8" class="text-center">
+          <span class="spinner-border spinner-border-lg align-center"></span>
+        </td>
+      </tr>
+      <tr *ngIf="!paginatedTeams.length && !isLoading">
+        <td colspan="8" class="text-center">No results found</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <nav aria-label="Team pagination">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="#" (click)="goToPage(currentPage - 1); $event.preventDefault()">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+        <a class="page-link" href="#" (click)="goToPage(page); $event.preventDefault()">{{ page }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="#" (click)="goToPage(currentPage + 1); $event.preventDefault()">Next</a>
+      </li>
+    </ul>
+  </nav>
+</body>
+</html>

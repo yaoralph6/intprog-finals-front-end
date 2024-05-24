@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Management</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: rgba(26, 25, 25, 0.8); /* Transparent background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 1200px;
+      margin-top: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #ff7f50; /* Changed header color to orange */
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-success {
+      background-color: #ff7f50; /* Changed color to orange */
+      border-color: #ff7f50; /* Changed color to orange */
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .table {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #e6dfdf;
+      margin-bottom: 20px;
+    }
+
+    .table thead th {
+      background-color: #292b2c;
+      color: #ffffff;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(40, 40, 40, 0.6);
+    }
+
+    .pagination {
+      justify-content: center;
+    }
+
+    .page-link {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #e6dfdf;
+      border: 1px solid #444;
+    }
+
+    .page-item.active .page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Players</h1>
+    <div class="d-flex justify-content-between mb-2 input-group">
+      <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterPlayers()" class="form-control" placeholder="Search players...">
+      <a routerLink="/players/add" class="btn btn-sm btn-success">Add Player</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Nationality</th>
+          <th>Born</th>
+          <th>Region</th>
+          <th>Role</th>
+          <th>In-Game Name</th>
+          <th>Team</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of paginatedPlayers">
+          <td><a [routerLink]="['/players/profile', player.playerId]">{{ player.name }}</a></td>
+          <td>{{ player.nationality }}</td>
+          <td>{{ player.born }}</td>
+          <td>{{ player.region }}</td>
+          <td>{{ player.role }}</td>
+          <td>{{ player.ingameName }}</td>
+          <td><a [routerLink]="['/teams/profile', player.teamId]">{{ player.teamDisplayName }}</a></td>
+          <td>
+            <a [routerLink]="['/players/edit', player.playerId]" class="btn btn-sm btn-primary mr-1">Edit</a>
+            <button (click)="deletePlayer(player.playerId)" class="btn btn-sm btn-danger" [disabled]="player.isDeleting">
+              <span *ngIf="player.isDeleting" class="spinner-border spinner-border-sm"></span>
+              <span *ngIf="!player.isDeleting">Delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="isLoading">
+          <td colspan="8" class="text-center">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+          </td>
+        </tr>
+        <tr *ngIf="!paginatedPlayers.length && !isLoading">
+          <td colspan="8" class="text-center">No results found</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav aria-label="Player pagination">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" href="#" (click)="goToPage(currentPage - 1); $event.preventDefault()">Previous</a>
+        </li>
+        <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+          <a class="page-link" href="#" (click)="goToPage(page); $event.preventDefault()">{{ page }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" href="#" (click)="goToPage(currentPage + 1); $event.preventDefault()">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</body>
+</html>

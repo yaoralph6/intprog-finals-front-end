@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: rgba(26, 25, 25, 0.8); /* Transparent background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #ff7f50; /* Changed header color to orange */
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+      margin-bottom: 10px;
+    }
+
+    .form-control:focus {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    .btn {
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background-color: #e03b09;
+      border-color: #e03b09;
+    }
+
+    .btn-primary:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+
+    .btn-link {
+      color: #ff7f50; /* Changed color to orange */
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      color: #ff4500;
+    }
+
+    .invalid-feedback {
+      color: #ff7f50; /* Changed color to orange */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 *ngIf="isAddMode">Create Player</h1>
+    <h1 *ngIf="!isAddMode">Edit Player</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>In-game Name</label>
+            <input type="text" formControlName="ingameName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ingameName.errors }" />
+            <div *ngIf="submitted && f.ingameName.errors" class="invalid-feedback">
+                <div *ngIf="f.ingameName.errors.required">In-game Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Nationality</label>
+            <input type="text" formControlName="nationality" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" />
+            <div *ngIf="submitted && f.nationality.errors" class="invalid-feedback">
+                <div *ngIf="f.nationality.errors.required">Nationality is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" formControlName="born" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.born.errors }" />
+            <div *ngIf="submitted && f.born.errors" class="invalid-feedback">
+                <div *ngIf="f.born.errors.required">Date of Birth is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Region</label>
+            <input type="text" formControlName="region" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.region.errors }" />
+            <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
+                <div *ngIf="f.region.errors.required">Region is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <input type="text" formControlName="role" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.role.errors }" />
+            <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                <div *ngIf="f.role.errors.required">Role is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Team</label>
+            <select formControlName="teamId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.teamId.errors }">
+                <option *ngFor="let team of teams" [value]="team.teamId">{{ team.name }}</option>
+            </select>
+            <div *ngIf="submitted && f.teamId.errors" class="invalid-feedback">
+                <div *ngIf="f.teamId.errors.required">Team is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Save
+            </button>
+            <a routerLink="/players" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+  </div>
+</body>
+</html>

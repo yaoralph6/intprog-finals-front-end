@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Team Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: rgba(26, 25, 25, 0.8); /* Transparent background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #ff7f50; /* Changed label color to match the theme */
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+    }
+
+    .btn-primary {
+      background-color: #ff4800;
+      border-color: #ff4800;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link {
+      color: #ff7f50; /* Changed color to orange */
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+      color: #ff7f50;
+    }
+
+    .invalid-feedback {
+      color: #ff7f50; /* Error message color to match the theme */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 *ngIf="isAddMode">Create Team</h1>
+    <h1 *ngIf="!isAddMode">Edit Team</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Team Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" formControlName="location" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+            <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                <div *ngIf="f.location.errors.required">Location is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Coach</label>
+            <input type="text" formControlName="coach" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.coach.errors }" />
+            <div *ngIf="submitted && f.coach.errors" class="invalid-feedback">
+                <div *ngIf="f.coach.errors.required">Coach is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Region</label>
+            <input type="text" formControlName="region" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.region.errors }" />
+            <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
+                <div *ngIf="f.region.errors.required">Region is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Manager</label>
+            <input type="text" formControlName="manager" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.manager.errors }" />
+            <div *ngIf="submitted && f.manager.errors" class="invalid-feedback">
+                <div *ngIf="f.manager.errors.required">Manager is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Save
+            </button>
+            <a routerLink="/teams" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+  </div>
+</body>
+</html>
