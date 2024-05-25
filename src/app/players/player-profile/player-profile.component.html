@@ -1,9 +1,99 @@
-<div *ngIf="player">
-    <h1>{{ player.name }}'s Profile</h1>
-    <p><strong>Nationality:</strong> {{ player.nationality }}</p>
-    <p><strong>Born:</strong> {{ player.born }}</p>
-    <p><strong>Region:</strong> {{ player.region }}</p>
-    <p><strong>Role:</strong> {{ player.role }}</p>
-    <p><strong>In-game Name:</strong> {{ player.ingameName }}</p>
-    <p><strong [routerLink]="['/teams/profile', player.teamId]">Team:</strong> {{ player.teamId }} {{ player.teamDisplayName }}</p>
-  </div>
+ <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+        background-size: cover; /* Ensure the background image covers the entire viewport */
+        background-position: center; /* Center the background image */
+        background-repeat: no-repeat; /* Prevent the background image from repeating */
+        color: #e6dfdf; /* Text color */
+        font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        justify-content: center;
+      }
+  
+      .container {
+        background-color: rgba(0, 0, 0, 0.8); /* Transparent background */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 80%;
+        max-width: 800px;
+      }
+  
+      h1 {
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px #000;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #ff7f50; /* Changed header color to orange */
+      }
+  
+      h2 {
+        font-size: 2rem;
+        text-shadow: 2px 2px 4px #000;
+        margin-top: 20px;
+        color: #ff7f50; /* Changed subheader color to orange */
+      }
+  
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+  
+      li {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+  
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+  
+      a:hover {
+        text-decoration: underline;
+        color: #ff7f50; /* Change hover color to orange */
+      }
+  
+      .spinner-border {
+        color: #ff7f50; /* Spinner color to match the theme */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div *ngIf="player">
+        <h1>{{ player.name }}'s Profile</h1>
+        <p><strong>Nationality:</strong> {{ player.nationality }}</p>
+        <p><strong>Born:</strong> {{ player.born }}</p>
+        <p><strong>Region:</strong> {{ player.region }}</p>
+        <p><strong>Role:</strong> {{ player.role }}</p>
+        <p><strong>In-game Name:</strong> {{ player.ingameName }}</p>
+        <h2><strong>Team:</strong> 
+          <a [routerLink]="['/teams/profile', player.teamId]"> {{ player.teamDisplayName }} </a>
+        </h2>
+      </div>
+      <ng-template #loading>
+        <p>Loading team data...</p>
+      </ng-template>
+    </div>
+  </body>
+  </html>
+  

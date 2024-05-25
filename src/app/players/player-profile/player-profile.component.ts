@@ -15,7 +15,8 @@ export class PlayerProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private teamService: TeamService
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +24,11 @@ export class PlayerProfileComponent implements OnInit {
     if (playerId) {
       this.playerService.getById(playerId).subscribe(player => {
         this.player = player;
+        this.teamService.getById(player.teamId).subscribe(team => {
+          this.player.teamDisplayName = team.name; 
+        });
       });
     }
   }
+  
 }
