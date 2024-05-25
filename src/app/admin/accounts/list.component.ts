@@ -68,5 +68,19 @@ export class ListComponent implements OnInit {
         this.currentPage = n;
         this.updatePaginatedAccounts();
     }
+
+    
+
+    deleteAccount(id: string): void {
+        this.accountService.delete(id).subscribe({
+          next: () => {
+            this.accounts = this.accounts.filter(Account => Account.id !== id);
+            this.filterAccounts();
+          },
+          error: (error) => {
+            console.error('Error deleting player', error);
+          }
+        });
+      }
     
 }

@@ -33,7 +33,7 @@ export class AddEditComponent implements OnInit {
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             role: ['', Validators.required],
-            isActive: [true, Validators.required],
+            isActive: [true, Validators.required], // Set default value to true
             password: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
             confirmPassword: ['']
         }, {
@@ -44,29 +44,21 @@ export class AddEditComponent implements OnInit {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.form.patchValue(x)
+                    this.form.patchValue(x);
                     this.account = x;
-                    if(this.account.role === 'Admin'){
-                        this.form.get('isActive').disable();
-                    }
+
+            
                 });
         }
     }
 
-    // convenience getter for easy access to form fields
+    // Convenience getter for easy access to form fields
     get f() { return this.form.controls; }
-
-    get isActiveValue(): string {
-        return this.form.get('isActive')?.value ? 'true' : 'false';
-    }
 
     onSubmit() {
         this.submitted = true;
-
-        // reset alerts on submit
         this.alertService.clear();
 
-        // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
@@ -98,7 +90,6 @@ export class AddEditComponent implements OnInit {
         this.loading = true;
 
         const formData = this.form.value;
-        formData.isActive = this.isActiveValue;
 
         this.accountService.update(this.id, formData)
             .pipe(first())

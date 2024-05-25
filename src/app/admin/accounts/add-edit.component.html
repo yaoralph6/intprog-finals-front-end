@@ -52,14 +52,14 @@
         </div>
         <div class="form-group col">
             <label>Status</label>
-            <select formControlName="isActive" class="form-control" [(ngModel)]="form.value.isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+            <select formControlName="isActive" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
                 <option [ngValue]="true">Enabled</option>
                 <option [ngValue]="false">Disabled</option>
             </select>
             <div *ngIf="submitted && f.isActive.errors" class="invalid-feedback">
                 <div *ngIf="f.isActive.errors.required">Status is required</div>
             </div>
-        </div>
+        </div>        
     </div>
     <div *ngIf="!isAddMode">
         <h3 class="pt-3">Change Password</h3>

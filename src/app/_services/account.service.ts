@@ -105,7 +105,7 @@ export class AccountService {
             }));
     }
     
-    /*
+    
     delete(id: string) {
         return this.http.delete(`${baseUrl}/${id}`)
             .pipe(finalize(() => {
@@ -113,7 +113,7 @@ export class AccountService {
                 if (id === this.accountValue.id)
                     this.logout();
             }));
-    }*/
+    }
 
     // helper methods
 
