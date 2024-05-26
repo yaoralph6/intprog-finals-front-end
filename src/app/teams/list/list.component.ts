@@ -16,7 +16,7 @@ export class TeamListComponent implements OnInit {
   isLoading: boolean = true;
 
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 6;
   totalPages: number = 1;
   pages: number[] = [];
 

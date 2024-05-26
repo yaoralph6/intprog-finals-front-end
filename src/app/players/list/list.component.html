@@ -140,11 +140,6 @@
             </button>
           </td>
         </tr>
-        <tr *ngIf="isLoading">
-          <td colspan="8" class="text-center">
-            <span class="spinner-border spinner-border-lg align-center"></span>
-          </td>
-        </tr>
         <tr *ngIf="!paginatedPlayers.length && !isLoading">
           <td colspan="8" class="text-center">No results found</td>
         </tr>
