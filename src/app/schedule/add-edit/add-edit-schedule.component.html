@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: rgba(26, 25, 25, 0.8); /* Transparent background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #ff7f50; /* Changed label color to match the theme */
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+    }
+
+    .btn-primary {
+      background-color: #ff4800;
+      border-color: #ff4800;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link {
+      color: #ff7f50; /* Changed color to orange */
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+      color: #ff7f50;
+    }
+
+    .invalid-feedback {
+      color: #ff7f50; /* Error message color to match the theme */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 *ngIf="isAddMode">Create Schedule</h1>
+    <h1 *ngIf="!isAddMode">Edit Schedule</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Date</label>
+        <input type="text" formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" />
+        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+          <div *ngIf="f.date.errors.required">Date is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Match</label>
+        <input type="text" formControlName="match" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.match.errors }" />
+        <div *ngIf="submitted && f.match.errors" class="invalid-feedback">
+          <div *ngIf="f.match.errors.required">Match is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Teams</label>
+        <input type="text" formControlName="teams" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.teams.errors }" />
+        <div *ngIf="submitted && f.teams.errors" class="invalid-feedback">
+          <div *ngIf="f.teams.errors.required">Teams is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Result</label>
+        <input type="text" formControlName="result" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.result.errors }" />
+        <div *ngIf="submitted && f.result.errors" class="invalid-feedback">
+          <div *ngIf="f.result.errors.required">Result is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tournament</label>
+        <select formControlName="tournamentId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.tournamentId.errors }">
+          <option *ngFor="let tournament of tournaments" [value]="tournament.tournamentId">{{ tournament.name }}</option>
+        </select>
+        <div *ngIf="submitted && f.tournamentId.errors" class="invalid-feedback">
+          <div *ngIf="f.tournamentId.errors.required">Tournament is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+        </button>
+        <a routerLink="/schedule" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

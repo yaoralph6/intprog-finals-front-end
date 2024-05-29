@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Tournament Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Gaming background image */
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+      background-position: center; /* Center the background image */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      color: #e6dfdf; /* Text color */
+      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: rgba(26, 25, 25, 0.8); /* Transparent background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px #000;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #ff7f50; /* Changed label color to match the theme */
+    }
+
+    .form-control {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid #444;
+      color: #e6dfdf;
+    }
+
+    .btn-primary {
+      background-color: #ff4800;
+      border-color: #ff4800;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link {
+      color: #ff7f50; /* Changed color to orange */
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+      color: #ff7f50;
+    }
+
+    .invalid-feedback {
+      color: #ff7f50; /* Error message color to match the theme */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 *ngIf="isAddMode">Create Tournament</h1>
+    <h1 *ngIf="!isAddMode">Edit Tournament</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Tournament Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Tournament Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="text" formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" />
+            <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <div *ngIf="f.date.errors.required">Date is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Prize Pool</label>
+            <input type="text" formControlName="prize_pool" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prize_pool.errors }" />
+            <div *ngIf="submitted && f.prize_pool.errors" class="invalid-feedback">
+                <div *ngIf="f.prize_pool.errors.required">Prize Pool is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" formControlName="location" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
+            <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                <div *ngIf="f.location.errors.required">Location is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Winner</label>
+            <input type="text" formControlName="winner" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.winner.errors }" />
+            <div *ngIf="submitted && f.winner.errors" class="invalid-feedback">
+                <div *ngIf="f.winner.errors.required">Winner is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Runner Up</label>
+            <input type="text" formControlName="runner_up" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.runner_up.errors }" />
+            <div *ngIf="submitted && f.runner_up.errors" class="invalid-feedback">
+                <div *ngIf="f.runner_up.errors.required">Runner Up is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Game</label>
+            <select formControlName="game" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.game.errors }">
+                <option value="">Select Game</option>
+                <option value="Dota 2">Dota 2</option>
+                <option value="Valorant">Valorant</option>
+                <option value="Mobile Legends">Mobile Legends</option>
+            </select>
+            <div *ngIf="submitted && f.game.errors" class="invalid-feedback">
+                <div *ngIf="f.game.errors.required">Game is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Save
+            </button>
+            <a routerLink="/tournament" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+  </div>
+</body>
+</html>

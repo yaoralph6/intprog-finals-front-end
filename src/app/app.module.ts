@@ -13,8 +13,12 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
+import { TournamentComponent } from './tournaments/tournaments.component';
 import { TeamModule } from './teams/team.module';
 import { PlayerModule } from './players/player.module';
+import { TournamentModule } from './tournament/tournament.module';
+import { ScheduleModule } from './schedule/schedule.module';
+
 
 @NgModule({
     imports: [
@@ -24,12 +28,15 @@ import { PlayerModule } from './players/player.module';
         AppRoutingModule,
         FormsModule,
         TeamModule,
-        PlayerModule
+        PlayerModule,
+        TournamentModule,
+        ScheduleModule
     ],
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        HomeComponent,
+        TournamentComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

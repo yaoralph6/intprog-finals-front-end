@@ -49,7 +49,7 @@ export class PlayerService {
                 return player;
             }));
     }
-
+    
     delete(playerId: string): Observable<void> {
         return this.http.delete<void>(`${baseUrl}/${playerId}`)
             .pipe(finalize(() => {
@@ -60,3 +60,4 @@ export class PlayerService {
             }));
     }
 }
+

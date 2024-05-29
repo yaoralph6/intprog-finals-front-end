@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styled Teams</title>
+  <title>Styled Tournaments</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); /* Replace with a gaming background image */
-      background-size: cover; /* Ensure the background image covers the entire viewport */
-      background-position: center; /* Center the background image */
-      background-repeat: no-repeat; /* Prevent the background image from repeating */
-      color: #e6dfdf; /* Text color */
-      font-family: 'Orbitron', sans-serif; /* Gaming-inspired font */
+      background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); 
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+      color: #e6dfdf; 
+      font-family: 'Orbitron', sans-serif; 
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -40,8 +40,8 @@
     }
 
     .btn-success {
-      background-color: #ff7f50; /* Changed color to orange */
-      border-color: #ff7f50; /* Changed color to orange */
+      background-color: #ff7f50; 
+      border-color: #ff7f50; 
     }
 
     .btn-primary {
@@ -93,57 +93,46 @@
 
     .actions .form-control {
       flex: 1;
-      margin-left: 10px; /* Move margin to the left */
+      margin-left: 10px; 
     }
 
-    a.team-link {
-      color: inherit; /* Inherit the color from the parent element */
-      text-decoration: none; /* No underline by default */
-    }
-    
-    a.team-link:hover {
-      text-decoration: none; /* Ensure no underline on hover */
-      color: #ff7f50; /* Change hover color to orange */
-    }
   </style>
 </head>
 <body>
-  <h1>Teams</h1>
+  <h1>Tournaments</h1>
 
   <div class="actions">
-    <div *ngIf="isAdmin">
-    <a routerLink="/teams/add" class="btn btn-sm btn-success mb-2">Create Team</a>
-    </div>
-    <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterTeams()" class="form-control mb-2" placeholder="Search teams...">
+    <a routerLink="/tournament/add" class="btn btn-sm btn-success mb-2">Create Tournament</a>
+    <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterTournaments()" class="form-control mb-2" placeholder="Search tournaments...">
   </div>
 
   <table class="table table-striped">
     <thead>
       <tr>  
         <th>Name</th>
+        <th>Date</th>
+        <th>Prize Pool</th>
         <th>Location</th>
-        <th>Coach</th>
-        <th>Region</th>
-        <th>Manager</th>
-        <th>Players</th>
-        <th *ngIf="isAdmin">ACTIONS</th>
+        <th>Winner</th>
+        <th>Runner Up</th>
+        <th>Game</th>
+        <th>ACTIONS</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let team of paginatedTeams">
-        <td><a (click)="viewTeam(team.teamId)" class="team-link">{{ team.name }}</a></td>
-        <td>{{ team.location }}</td>
-        <td>{{ team.coach }}</td>
-        <td>{{ team.region }}</td>
-        <td>{{ team.manager }}</td>
-        <td>{{ team.players?.length }}</td>
+      <tr *ngFor="let tournament of paginatedTournaments">
+        <td><a (click)="viewTournament(tournament.tournamentId)">{{ tournament.name }}</a></td>
+        <td>{{ tournament.date }}</td>
+        <td>{{ tournament.prize_pool }}</td>
+        <td>{{ tournament.location }}</td>
+        <td>{{ tournament.winner }}</td>
+        <td>{{ tournament.runner_up }}</td>
+        <td>{{ tournament.game }}</td>
         <td>
-          <div *ngIf="isAdmin">
-          <a [routerLink]="['edit', team.teamId]" class="btn btn-sm btn-primary mr-1">Edit</a>
-          </div>
-          <!--<button (click)="deleteTeam(team.teamId)" class="btn btn-sm btn-danger" [disabled]="team.isDeleting">
-            <span *ngIf="team.isDeleting" class="spinner-border spinner-border-sm"></span>
-            <span *ngIf="!team.isDeleting">Delete</span>
+          <a [routerLink]="['edit', tournament.tournamentId]" class="btn btn-sm btn-primary mr-1">Edit</a>
+          <!--<button (click)="deleteTournament(tournament.tournamentId)" class="btn btn-sm btn-danger" [disabled]="tournament.isDeleting">
+            <span *ngIf="tournament.isDeleting" class="spinner-border spinner-border-sm"></span>
+            <span *ngIf="!tournament.isDeleting">Delete</span>
           </button>-->
         </td>
       </tr>
@@ -152,13 +141,13 @@
           <span class="spinner-border spinner-border-lg align-center"></span>
         </td>
       </tr>
-      <tr *ngIf="!paginatedTeams.length && !isLoading">
+      <tr *ngIf="!paginatedTournaments.length && !isLoading">
         <td colspan="8" class="text-center">No results found</td>
       </tr>
     </tbody>
   </table>
 
-  <nav aria-label="Team pagination">
+  <nav aria-label="Tournament pagination">
     <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <a class="page-link" href="#" (click)="goToPage(currentPage - 1); $event.preventDefault()">Previous</a>

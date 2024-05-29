@@ -1,0 +1,90 @@
+body {
+  background-image: url('https://cdn.wallpapersafari.com/54/43/UbLfrJ.png'); 
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+}
+
+.title {
+  text-align: center;
+}
+
+.tournament-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tournament-image {
+  width: 200px;
+  height: auto;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.tournament-image:hover {
+  opacity: 0.8;
+}
+
+.clickable {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+.clickable:hover, .clickable:active {
+  color: black;
+  text-decoration: none;
+}
+
+.centered-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.schedule-button-container {
+  position: relative;
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.schedule-button-container:hover {
+  background-color: #ffffff;
+}
+
+.schedule-table {
+  margin-top: 20px;
+}
+
+.table {
+  margin-bottom: 20px;
+}
+
+.container {
+  position: relative;
+}
+
+.schedule-button-fixed {
+  position: absolute;
+  top: -50px;
+  left: 0;
+}
+
+.tournament-page {
+  background-color: #1f1c1c; 
+  color: #f7eeee; 
+}

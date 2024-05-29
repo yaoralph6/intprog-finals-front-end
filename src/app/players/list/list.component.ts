@@ -4,6 +4,10 @@ import { TeamService } from '../../_services/team.services';
 import { Router } from '@angular/router';
 import { Player } from '../../_models/player';
 import { forkJoin } from 'rxjs';
+import { AccountService } from '../../_services/account.service';
+import { Role } from '../../_models/role';
+
+
 
 @Component({
   selector: 'app-player-list',
@@ -16,21 +20,26 @@ export class PlayerListComponent implements OnInit {
   paginatedPlayers: Player[] = [];
   searchText: string = '';
   isLoading: boolean = true;
+  isAdmin: boolean = false;
 
   currentPage: number = 1;
   pageSize: number = 6;
   totalPages: number = 1;
   pages: number[] = [];
 
+
   constructor(
     private playerService: PlayerService,
     private teamService: TeamService,
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.accountService.accountValue.role === Role.Admin;
     this.fetchPlayers();
   }
+ 
 
   fetchPlayers(): void {
     this.isLoading = true;
@@ -103,7 +112,7 @@ export class PlayerListComponent implements OnInit {
     this.currentPage = page;
     this.paginatePlayers();
   }
-
+/*
   deletePlayer(playerId: string): void {
     this.playerService.delete(playerId).subscribe({
       next: () => {
@@ -115,7 +124,7 @@ export class PlayerListComponent implements OnInit {
       }
     });
   }
-
+*/
   viewPlayer(playerId: string): void {
     this.router.navigate(['/players/profile', playerId]);
   }

@@ -114,6 +114,7 @@ export class AccountService {
                     this.logout();
             }));
     }
+    
 
     // helper methods
 
@@ -133,3 +134,4 @@ export class AccountService {
         clearTimeout(this.refreshTokenTimeout);
     }
 }
+

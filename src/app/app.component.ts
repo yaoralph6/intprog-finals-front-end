@@ -8,7 +8,7 @@ export class AppComponent {
     Role = Role;
     account: Account;
     darkMode = false;
-    showTeams = false; // Add the showTeams property
+    showTeams = false; 
     showPlayers = false;
 
     constructor(private accountService: AccountService) {

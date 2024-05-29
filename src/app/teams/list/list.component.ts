@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TeamService } from '../../_services/team.services';
 import { Router } from '@angular/router';
 import { Team } from '../../_models/team';
+import { Role } from '../../_models';
+import { AccountService } from '../../_services/account.service';
 
 @Component({
   selector: 'app-team-list',
@@ -14,18 +16,21 @@ export class TeamListComponent implements OnInit {
   paginatedTeams: Team[] = [];
   searchText: string = '';
   isLoading: boolean = true;
+  isAdmin: boolean = false;
 
   currentPage: number = 1;
-  pageSize: number = 6;
+  pageSize: number = 10;
   totalPages: number = 1;
   pages: number[] = [];
 
   constructor(
     private teamService: TeamService,
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.accountService.accountValue.role === Role.Admin;
     this.fetchTeams();
   }
 
@@ -71,14 +76,14 @@ export class TeamListComponent implements OnInit {
     this.currentPage = page;
     this.paginateTeams();
   }
-
+/*
   deleteTeam(teamId: string) {
     this.teamService.delete(teamId).subscribe(() => {
       this.teams = this.teams.filter(team => team.teamId !== teamId);
       this.filterTeams();
     });
   }
-
+*/
   viewTeam(teamId: string) {
     this.router.navigate(['/teams/profile', teamId]);
   }
